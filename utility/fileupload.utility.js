@@ -1,15 +1,14 @@
 const multer = require('multer');
+
 const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './uploads/');
-    },
-    filename: function (req, file, callback) {
-        callback(null, file.originalname);
-    }
+  destination(req, file, callback) {
+    callback(null, './uploads/');
+  },
+  filename(req, file, callback) {
+    callback(null, file.originalname);
+  },
 });
-const upload = multer(
-    { storage: storage }
-);
-var type = upload.single('image');
+const upload = multer({ storage });
+const type = upload.single('image');
 
 module.exports = type;

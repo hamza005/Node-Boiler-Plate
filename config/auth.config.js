@@ -1,4 +1,4 @@
 // config.js
 module.exports = {
-    'secret': 'supersecret'
-  };
+  secret: process.env.DB_SECRET,
+};
