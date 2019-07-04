@@ -1,11 +1,11 @@
 const userController = require('../controllers/user.controller');
-const image = require('../utility/fileupload.utility');
-const token = require('../utility/verifytoken.utility');
+const file = require('../utility/fileupload.utility');
+const auth = require('../utility/verifytoken.utility');
 
 module.exports = app => {
-  app.get('/', token.jwtVerify, userController.getUsers);
-  app.post('/signup', image, userController.signup);
-  app.post('/findUser', token.jwtVerify, userController.findId);
+  app.get('/', auth.jwtVerify, userController.getUsers);
+  app.post('/signup', file, userController.signup);
+  app.post('/findUser', auth.jwtVerify, userController.findId);
   app.post('/login', userController.login);
-  app.delete('/remove/:id', token.jwtVerify, userController.deleteUser);
+  app.delete('/remove/:id', auth.jwtVerify, userController.deleteUser);
 };
