@@ -31,7 +31,7 @@ exports.signup = (req, res) => {
       const token = jwt.sign({ id: user._id }, config.secret, {
         expiresIn: 86400, // expires in 24 hours
       });
-      data.image = process.env.HOST_URL + data.image;
+      data.image = `http://localhost:3000/${doc.image}`;
       res.status(200).send({ status: 1, success: true, token, data });
     })
     .catch(err =>
@@ -49,13 +49,13 @@ exports.getUsers = (req, res) => {
         users: docs.map(doc => ({
           name: doc.name,
           email: doc.email,
-          image: process.env.HOST_URL + doc.image,
+          image: `http://localhost:3000/${doc.image}`,
           id: doc._id,
           password: doc.password,
-          // request: {
-          //     type: 'GET',
-          //     url: 'http://localhost:1234/' + doc._id
-          // }
+          request: {
+            type: 'GET',
+            url: `http://localhost:3000/${doc._id}`,
+          },
         })),
       };
       res.status(200).send({ success: true, status: 1, data: usersList });
@@ -78,7 +78,7 @@ exports.findId = (req, res) => {
           message: 'No Record Found!',
         });
       }
-      doc.image = process.env.HOST_URL + doc.image;
+      doc.image = `http://localhost:3000/${doc.image}`;
       return res.status(200).send(doc);
     })
     .catch(err => {
